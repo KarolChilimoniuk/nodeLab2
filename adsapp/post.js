@@ -1,4 +1,5 @@
 const express = require('express');
+const { v4: uuid } = require('uuid');
 const router = require('./adsRouter');
 const adsData = require('./adsData.json');
 const fs = require('fs');
@@ -11,7 +12,7 @@ router.post('/add', async (req, res) => {
         const nowDate = new Date();
         const newAd = {
             username: req.user.username,
-            id: Math.floor(Math.random() * 100000),
+            id: uuid(),
             advert: advert,
             category: category,
             price: price,
@@ -29,6 +30,14 @@ router.post('/add', async (req, res) => {
         next(e);
     }
 });
+
+/* 
+{
+  "advert": "Kupię telewizor Samsung",
+  "category": ["sprzęt domowy", "telewizja"],
+  "price": "500 zł"
+}
+*/
 
 
 module.exports = router;
